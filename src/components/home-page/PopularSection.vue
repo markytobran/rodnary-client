@@ -16,8 +16,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="h-screen w-11/12">
-    <h1 class="pt-5 text-2xl font-bold ml-16 text-slate-100 mt-5">Videos we think you'll like</h1>
+  <section class="max-h-fit">
+    <h1 class="pt-5 text-3xl font-bold text-slate-100 mt-5">Videos we think you'll like</h1>
     <PopularArea title="Commercial" :videoDataset="commercialVideosData">
       <img src="@/assets/img/home-page/carp.png" class="h-20 w-32" />
     </PopularArea>

@@ -9,18 +9,18 @@ const props = defineProps({
 
 <template>
   <div class="mt-6">
-    <h3 class="text-2xl font-semibold flex text-slate-100 ml-16">
+    <h3 class="text-2xl font-semibold flex text-slate-100">
       {{ title }}
-      <slot></slot>
+      <slot />
     </h3>
   </div>
-  <div class="flex justify-between w-full pl-16 mb-60">
+  <div class="flex justify-between w-11/12 mb-60 mx-auto">
     <VideoCard
       v-for="(videoData, index) in videoDataset"
       :key="index"
       :video-data="videoData"
       :show-description="true"
-      class="first:mt-10 last:mt-16"
+      class="first:mt-12 last:mt-20"
     />
   </div>
 </template>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { computed, ref } from 'vue'
 import addtoWatchListBtn from '@/components/atoms/AddToWatchListBtn.vue'
 import IconSubtitle from '@/components/icons/IconSubtitle.vue'
 import IconVideoBtn from '@/components/icons/IconVideoBtn.vue'
-import { computed, ref } from 'vue'
 
 const props = defineProps({
   videoData: Object,
@@ -24,11 +24,17 @@ const modifiedTime = computed(() => {
 
 const reducedDescription = computed(() => props.videoData.description.substring(0, 136))
 
-const flagPath = computed(() => new URL(`../../assets/img/flags/${props.videoData?.videoLanguage}.png`, import.meta.url).href)
+const flagPath = computed(
+  () => new URL(`../../assets/img/flags/${props.videoData?.videoLanguage}.png`, import.meta.url).href
+)
 
-const subFishingType = computed(() => new URL(`../../assets/img/card-icons/${props.videoData?.subFishing}.png`, import.meta.url).href)
+const subFishingType = computed(
+  () => new URL(`../../assets/img/card-icons/${props.videoData?.subFishing}.png`, import.meta.url).href
+)
 
-const waterType = computed(() => new URL(`../../assets/img/card-icons/${props.videoData?.water}.png`, import.meta.url).href)
+const waterType = computed(
+  () => new URL(`../../assets/img/card-icons/${props.videoData?.water}.png`, import.meta.url).href
+)
 
 function togglePictureToIframe() {
   showIframe.value = true
@@ -80,14 +86,24 @@ function togglePictureToIframe() {
           {{ reducedDescription }}
         </p>
         <img src="@/assets/img/logo/rodnary-logo.png" alt="Rodnary-logo" class="h-10 w-18 absolute bottom-3 left-3" />
-        <span class="h-8 w-15 absolute -bottom-2 left-24 text-gray-100 text-xs font-semibold">{{ videoData?.videoLength }}</span>
+        <span class="h-8 w-15 absolute -bottom-2 left-24 text-gray-100 text-xs font-semibold">{{
+          videoData?.videoLength
+        }}</span>
         <span class="h-8 w-15 absolute -bottom-2 right-16 text-gray-100 text-xs font-semibold">{{ modifiedTime }}</span>
         <IconSubtitle v-if="isSubtitle" />
       </div>
       <div class="h-full w-1/6 bg-primary-color-light rounded-lg flex flex-col justify-between items-center pt-3 pb-2">
         <img :src="flagPath" :alt="`${videoData?.videoLanguage} flag`" class="h-10 w-16 -mt-2" />
-        <img :src="subFishingType" :alt="videoData?.subFishingType" class="h-14 w-14 rounded-full border-4 border-secondary-color" />
-        <img :src="waterType" :alt="videoData?.waterType" class="h-14 w-14 rounded-full border-4 border-secondary-color" />
+        <img
+          :src="subFishingType"
+          :alt="videoData?.subFishingType"
+          class="h-14 w-14 rounded-full border-4 border-secondary-color"
+        />
+        <img
+          :src="waterType"
+          :alt="videoData?.waterType"
+          class="h-14 w-14 rounded-full border-4 border-secondary-color"
+        />
       </div>
     </RouterLink>
   </div>
