@@ -1,5 +1,5 @@
 <template>
-  <section class="h-screen w-screen home-background bg-no-repeat bg-cover bg-left-bottom relative z-10">
+  <section class="h-full w-full home-background bg-no-repeat bg-cover bg-left-bottom relative z-10">
     <img
       id="leaf1"
       class="w-12 h-12 absolute bottom-1/3 left-1/6 transform rotate-90 leafs"

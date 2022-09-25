@@ -5,11 +5,14 @@ const props = defineProps({ path: String })
 
 <template>
   <li
-    class="mb-12 mr-auto ml-auto relative h-10 flex justify-center rounded-lg w-11/12 transform bg-transparent navlink z-20"
+    class="mb-12 mr-auto ml-auto relative h-11 flex justify-center rounded-lg w-11/12 transform bg-transparent navlink z-20"
     :class="{ 'animate-navlink': $route.path === props.path }"
   >
     <RouterLink :to="props.path" class="flex justify-center items-center">
-      <HomeIcon :color="$route.path !== props.path ? '#CF6D00' : '#fff'" :class="{ 'animate-navicon': $route.path === props.path }" />
+      <HomeIcon
+        :color="$route.path !== props.path ? '#CF6D00' : '#fff'"
+        :class="{ 'animate-navicon': $route.path === props.path }"
+      />
     </RouterLink>
   </li>
 </template>
@@ -18,7 +21,7 @@ const props = defineProps({ path: String })
 .animate-navlink .router-link-exact-active::after {
   content: '';
   position: absolute;
-  top: 13px;
+  top: 15px;
   right: 7px;
   width: 14px;
   height: 14px;

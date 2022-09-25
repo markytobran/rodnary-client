@@ -17,7 +17,7 @@ router.beforeEach((to, from, next) => {
 
 <template>
   <TheHeader />
-  <main class="relative">
+  <main class="relative w-full">
     <!--Loader animation-->
     <transition name="loader">
       <Loader v-if="isLoading" />
@@ -26,7 +26,7 @@ router.beforeEach((to, from, next) => {
     <!--Router-->
     <router-view v-slot="{ Component }">
       <transition name="route" mode="out-in">
-        <component :is="Component"></component>
+        <component :is="Component" />
       </transition>
     </router-view>
   </main>
@@ -42,7 +42,7 @@ router.beforeEach((to, from, next) => {
   box-shadow: inset 0 0 2.5px 2px rgba(0, 0, 0, 0.5);
 }
 ::-webkit-scrollbar-thumb {
-  background: #08fdd8;
+  background: #cf6d00;
   border-radius: 3px;
 }
 
