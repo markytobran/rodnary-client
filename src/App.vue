@@ -1,85 +1,95 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import { ref } from 'vue'
+import { RouterView, useRouter } from 'vue-router'
+import TheHeader from '@/components/global/navigation/TheHeader.vue'
+import Loader from '@/components/global/Loader.vue'
+
+const router = useRouter()
+
+let isLoading = ref(false)
+
+router.beforeEach((to, from, next) => {
+  setTimeout(() => (isLoading.value = true), 150)
+  setTimeout(() => (isLoading.value = false), 2000)
+  next()
+})
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <TheHeader />
+  <main class="relative">
+    <!--Loader animation-->
+    <transition name="loader">
+      <Loader v-if="isLoading" />
+    </transition>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+    <!--Router-->
+    <router-view v-slot="{ Component }">
+      <transition name="route" mode="out-in">
+        <component :is="Component"></component>
+      </transition>
+    </router-view>
+  </main>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<style>
+/* Custom scrollbar*/
+::-webkit-scrollbar {
+  width: 14px;
+}
+::-webkit-scrollbar-track {
+  border: 7px solid black;
+  box-shadow: inset 0 0 2.5px 2px rgba(0, 0, 0, 0.5);
+}
+::-webkit-scrollbar-thumb {
+  background: #08fdd8;
+  border-radius: 3px;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+/* Route transitions */
+.route-enter-from {
+  opacity: 0;
+  transform: translateX(-50%);
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+.route-enter-active {
+  transition: all 0.5s ease-out;
+  transition-delay: 1.75s;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+.route-leave-to {
+  opacity: 0;
+  transform: translateX(0%);
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+.route-leave-active {
+  transition: all 0.3s ease-out;
 }
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+.loader-enter-active {
+  animation: slider 2.2s both;
 }
 
-nav a:first-of-type {
-  border: 0;
+.loader-leave-active {
+  opacity: 0;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+@keyframes slider {
+  0% {
+    background: #1d1d1d;
+    transform: translateX(-100%);
   }
-
-  .logo {
-    margin: 0 2rem 0 0;
+  30% {
+    transform: translateX(0%);
   }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+  75% {
+    transform: translateX(0%);
   }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+  95% {
+    transform: translateX(100%);
+  }
+  100% {
+    background: transparent;
   }
 }
 </style>
