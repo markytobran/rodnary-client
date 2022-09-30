@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import addtoWatchListBtn from '@/components/atoms/AddToWatchListBtn.vue'
+import addtoWatchListBtn from '@/components/AddToWatchListBtn.vue'
 import IconSubtitle from '@/components/icons/IconSubtitle.vue'
 import IconVideoBtn from '@/components/icons/IconVideoBtn.vue'
 
@@ -25,16 +25,25 @@ const modifiedTime = computed(() => {
 const reducedDescription = computed(() => props.videoData.description.substring(0, 136))
 
 const flagPath = computed(
-  () => new URL(`../../assets/img/flags/${props.videoData?.videoLanguage}.png`, import.meta.url).href
+  () => new URL(`../assets/img/flags/${props.videoData?.videoLanguage}.png`, import.meta.url).href
 )
 
 const subFishingType = computed(
-  () => new URL(`../../assets/img/card-icons/${props.videoData?.subFishing}.png`, import.meta.url).href
+  () => new URL(`../assets/img/card-icons/${props.videoData?.subFishing}.jpg`, import.meta.url).href
 )
 
 const waterType = computed(
-  () => new URL(`../../assets/img/card-icons/${props.videoData?.water}.png`, import.meta.url).href
+  () => new URL(`../assets/img/card-icons/${props.videoData?.water}.jpg`, import.meta.url).href
 )
+
+const isNewVideo = computed(() => {
+  const today = new Date()
+  const createdAt = new Date(props.videoData?.publishedAt)
+  const week = 604800
+  const sub = (today - createdAt) / 1000
+
+  return sub <= week
+})
 
 function togglePictureToIframe() {
   showIframe.value = true
@@ -45,21 +54,27 @@ function togglePictureToIframe() {
   <div
     :class="
       showDescription
-        ? 'h-96 rounded-lg video-card cursor-pointer w-84 video-card-effect hover:z-50'
-        : 'h-48 rounded-lg video-card cursor-pointer w-84 video-card-without-description hover:z-50'
+        ? 'h-96 rounded-lg video-card cursor-pointer video-card-effect hover:z-50'
+        : 'h-44 rounded-lg video-card cursor-pointer video-card-without-description hover:z-50'
     "
   >
-    <div v-if="!showIframe" class="h-56 w-full rounded-lg relative z-40" @click="togglePictureToIframe">
+    <div v-if="!showIframe" class="h-44 w-full rounded-lg relative z-40 overflow-hidden" @click="togglePictureToIframe">
       <img :src="videoData?.coverImgLink" class="w-full h-full" loading="lazy" />
       <span
         class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-12 w-16 ease-in-out duration-100 bg-icon-grey hover:bg-secondary-color rounded-xl flex justify-center items-center"
       >
         <IconVideoBtn class="ml-1 h-7 w-7" color="white" />
       </span>
+      <span
+        v-if="isNewVideo"
+        class="absolute top-5 -right-8 text-xl bg-average-pink text-black font-bold rotate-45 w-32 text-center"
+      >
+        NEW
+      </span>
     </div>
     <iframe
       v-else
-      class="h-56 w-full rounded-lg"
+      class="h-44 w-full rounded-lg"
       :src="'https://www.youtube.com/embed/' + videoData?.videoID + '?autoplay=1'"
       title="YouTube video player"
       frameborder="0"
@@ -122,13 +137,14 @@ function togglePictureToIframe() {
 }
 
 .video-card-without-description:hover {
-  transform: translateY(-25%);
+  transform: translateY(-0%);
 }
 
 .video-card-description-hover-effect {
-  transform: translateY(-100%);
+  transform: translateY(-80%);
   opacity: 0;
-  transition: all 0.2s linear;
+  transition-delay: 250ms;
+  transition: all 0.3s linear;
 }
 
 .video-card:hover .video-card-description-hover-effect {

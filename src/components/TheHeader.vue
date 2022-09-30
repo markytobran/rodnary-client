@@ -1,6 +1,6 @@
 <script setup>
 import HomeIcon from '@/components/icons/IconHome.vue'
-import NavItem from './NavItem.vue'
+import NavItem from './HeaderNavItem.vue'
 const pathList = ['/', '/about']
 </script>
 

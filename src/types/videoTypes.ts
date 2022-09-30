@@ -19,5 +19,5 @@ export interface VideoDataType {
 
 export enum API {
   SKIP = 0,
-  LIMIT = 10,
+  LIMIT = 8,
 }

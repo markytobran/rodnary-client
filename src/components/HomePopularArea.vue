@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import VideoCard from '@/components/global/VideoCard.vue'
+import AppVideoCard from '@/components/AppVideoCard.vue'
 
 const props = defineProps({
   videoDataset: Object,
@@ -15,12 +15,12 @@ const props = defineProps({
     </h3>
   </div>
   <div class="flex justify-between w-11/12 mb-60 mx-auto">
-    <VideoCard
+    <AppVideoCard
       v-for="(videoData, index) in videoDataset"
       :key="index"
       :video-data="videoData"
       :show-description="true"
-      class="first:mt-12 last:mt-20"
+      class="first:mt-12 last:mt-20 w-84"
     />
   </div>
 </template>

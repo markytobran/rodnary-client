@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import { RouterView, useRouter } from 'vue-router'
-import TheHeader from '@/components/global/navigation/TheHeader.vue'
-import Loader from '@/components/global/Loader.vue'
+import TheHeader from '@/components/TheHeader.vue'
+import Loader from '@/components/Loader.vue'
 
 const router = useRouter()
 
